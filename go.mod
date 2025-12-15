@@ -1,4 +1,4 @@
-module github.com/build-assistant/cli
+module github.com/daniilsv/buildctl-cli
 
 go 1.25.4
 

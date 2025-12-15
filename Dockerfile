@@ -3,16 +3,17 @@ FROM golang:1.25-alpine AS builder
 WORKDIR /build
 
 # Копируем go.mod и go.sum
-COPY cli/go.mod cli/go.sum ./
+COPY go.mod go.sum ./
 
 # Загружаем зависимости
 RUN go mod download
 
 # Копируем исходный код CLI
-COPY cli/cmd ./cmd
+COPY cmd ./cmd
 
 # Собираем buildctl
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o buildctl ./cmd/buildctl
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o buildctl ./cmd
+
 
 # Финальный образ
 FROM alpine:latest

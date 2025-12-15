@@ -16,7 +16,7 @@ GitHub Action для интеграции с Build Assistant - системой 
 
 ```yaml
 - name: Notify build started
-  uses: your-org/build-assistant@v1
+  uses: daniilsv/buildctl-cli@v1.0.1
   with:
     action: event
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -26,7 +26,7 @@ GitHub Action для интеграции с Build Assistant - системой 
 
 - name: Notify build success
   if: success()
-  uses: your-org/build-assistant@v1
+  uses: daniilsv/buildctl-cli@v1.0.1
   with:
     action: event
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -37,7 +37,7 @@ GitHub Action для интеграции с Build Assistant - системой 
 
 - name: Notify build failed
   if: failure()
-  uses: your-org/build-assistant@v1
+  uses: daniilsv/buildctl-cli@v1.0.1
   with:
     action: event
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -51,7 +51,7 @@ GitHub Action для интеграции с Build Assistant - системой 
 
 ```yaml
 - name: Upload artifact
-  uses: your-org/build-assistant@v1
+  uses: daniilsv/buildctl-cli@v1.0.1
   with:
     action: artifact
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -75,7 +75,7 @@ GitHub Action для интеграции с Build Assistant - системой 
     echo "digest=$DIGEST" >> $GITHUB_OUTPUT
 
 - name: Register container image
-  uses: your-org/build-assistant@v1
+  uses: daniilsv/buildctl-cli@v1.0.1
   with:
     action: container
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -92,7 +92,7 @@ GitHub Action для интеграции с Build Assistant - системой 
   run: docker save registry.example.com/my-project:${{ github.sha }} -o image.tar
 
 - name: Register container image with tarball
-  uses: your-org/build-assistant@v1
+  uses: daniilsv/buildctl-cli@v1.0.1
   with:
     action: container
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -121,7 +121,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Notify build started
-        uses: your-org/build-assistant@v1
+        uses: daniilsv/buildctl-cli@v1.0.1
         with:
           action: event
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -140,7 +140,7 @@ jobs:
 
       - name: Upload artifact
         if: success()
-        uses: your-org/build-assistant@v1
+        uses: daniilsv/buildctl-cli@v1.0.1
         with:
           action: artifact
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -163,7 +163,7 @@ jobs:
 
       - name: Register container image
         if: success()
-        uses: your-org/build-assistant@v1
+        uses: daniilsv/buildctl-cli@v1.0.1
         with:
           action: container
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -174,7 +174,7 @@ jobs:
 
       - name: Notify build success
         if: success()
-        uses: your-org/build-assistant@v1
+        uses: daniilsv/buildctl-cli@v1.0.1
         with:
           action: event
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -184,7 +184,7 @@ jobs:
 
       - name: Notify build failed
         if: failure()
-        uses: your-org/build-assistant@v1
+        uses: daniilsv/buildctl-cli@v1.0.1
         with:
           action: event
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}

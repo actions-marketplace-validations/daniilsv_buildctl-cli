@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/build-assistant/cli/cmd/buildctl/commands"
+	"github.com/daniilsv/buildctl-cli/cmd/commands"
 )
 
 func main() {
@@ -11,4 +11,3 @@ func main() {
 		os.Exit(1)
 	}
 }
-
