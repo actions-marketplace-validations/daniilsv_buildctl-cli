@@ -1,0 +1,67 @@
+name: 'Build Assistant'
+description: 'Track builds, upload artifacts, and register container images with Build Assistant'
+author: 'Build Assistant Team'
+
+branding:
+  icon: 'package'
+  color: 'blue'
+
+inputs:
+  # Common inputs
+  action:
+    description: 'Action to perform: event, artifact, or container'
+    required: true
+  token:
+    description: 'Build Assistant API token'
+    required: true
+  backend:
+    description: 'Build Assistant backend URL'
+    required: true
+  project:
+    description: 'Project name'
+    required: true
+  branch:
+    description: 'Branch name'
+    required: true
+    default: ${{ github.ref_name }}
+  commit:
+    description: 'Commit hash'
+    required: true
+    default: ${{ github.sha }}
+
+  # Event action inputs
+  status:
+    description: 'Build status: queued, started, in_progress, success, failed, cancelled (for action=event)'
+    required: false
+  log:
+    description: 'Log message (for action=event)'
+    required: false
+
+  # Artifact action inputs
+  file:
+    description: 'Path to file to upload (for action=artifact or action=container with --file)'
+    required: false
+
+  # Container action inputs
+  image:
+    description: 'Container image with tag (e.g., registry.example.com/app:v1.0) (for action=container)'
+    required: false
+  digest:
+    description: 'Image digest (e.g., sha256:abc123...) (for action=container)'
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.action }}
+    - ${{ inputs.token }}
+    - ${{ inputs.backend }}
+    - ${{ inputs.project }}
+    - ${{ inputs.branch }}
+    - ${{ inputs.commit }}
+    - ${{ inputs.status }}
+    - ${{ inputs.log }}
+    - ${{ inputs.file }}
+    - ${{ inputs.image }}
+    - ${{ inputs.digest }}
