@@ -51,17 +51,5 @@ inputs:
     required: false
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.action }}
-    - ${{ inputs.token }}
-    - ${{ inputs.backend }}
-    - ${{ inputs.project }}
-    - ${{ inputs.branch }}
-    - ${{ inputs.commit }}
-    - ${{ inputs.status }}
-    - ${{ inputs.log }}
-    - ${{ inputs.file }}
-    - ${{ inputs.image }}
-    - ${{ inputs.digest }}
+  using: 'node20'
+  main: 'dist/index.js'
