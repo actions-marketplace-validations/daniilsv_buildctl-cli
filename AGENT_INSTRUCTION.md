@@ -2,7 +2,7 @@
 
 ## Обзор
 
-Эта инструкция описывает, как LLM-agent должен добавлять шаги сборки в GitHub Actions/Gitea Actions workflow файлы, используя GitHub Action `daniilsv/buildctl-cli@v1.0.1` для интеграции с Build Assistant.
+Эта инструкция описывает, как LLM-agent должен добавлять шаги сборки в GitHub Actions/Gitea Actions workflow файлы, используя GitHub Action `daniilsv/buildctl-cli@v2.0.1` для интеграции с Build Assistant.
 
 ## Структура шагов
 
@@ -15,7 +15,7 @@
 **Шаблон**:
 ```yaml
 - name: Notify build started
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: event
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -43,7 +43,7 @@
 **Шаблон**:
 ```yaml
 - name: Send log
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: event
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -70,7 +70,7 @@
 ```yaml
 - name: Notify build success
   if: success()
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: event
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -92,7 +92,7 @@
 ```yaml
 - name: Notify build failed
   if: failure()
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: event
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -116,7 +116,7 @@
 ```yaml
 - name: Upload artifact
   if: success()
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: artifact
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -147,7 +147,7 @@
 
 - name: Upload artifact
   if: success()
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: artifact
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -179,7 +179,7 @@
 
 - name: Register container image
   if: success()
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: container
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -210,7 +210,7 @@
 
 - name: Register container image with tarball
   if: success()
-  uses: daniilsv/buildctl-cli@v1.0.1
+  uses: daniilsv/buildctl-cli@v2.0.1
   with:
     action: container
     token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -236,7 +236,7 @@
 2. **Уведомление о начале сборки** (обязательно)
    ```yaml
    - name: Notify build started
-     uses: daniilsv/buildctl-cli@v1.0.1
+     uses: daniilsv/buildctl-cli@v2.0.1
      with:
        action: event
        status: started
@@ -248,7 +248,7 @@
 4. **Уведомления о прогрессе** (опционально, после важных этапов)
    ```yaml
    - name: Send log
-     uses: daniilsv/buildctl-cli@v1.0.1
+     uses: daniilsv/buildctl-cli@v2.0.1
      with:
        action: event
        status: in_progress
@@ -262,7 +262,7 @@
    ```yaml
    - name: Upload artifact
      if: success()
-     uses: daniilsv/buildctl-cli@v1.0.1
+     uses: daniilsv/buildctl-cli@v2.0.1
      with:
        action: artifact
        file: ...
@@ -277,7 +277,7 @@
    ```yaml
    - name: Register container image
      if: success()
-     uses: daniilsv/buildctl-cli@v1.0.1
+     uses: daniilsv/buildctl-cli@v2.0.1
      with:
        action: container
        image: ...
@@ -289,7 +289,7 @@
     ```yaml
     - name: Notify build success
       if: success()
-      uses: daniilsv/buildctl-cli@v1.0.1
+      uses: daniilsv/buildctl-cli@v2.0.1
       with:
         action: event
         status: success
@@ -300,7 +300,7 @@
     ```yaml
     - name: Notify build failed
       if: failure()
-      uses: daniilsv/buildctl-cli@v1.0.1
+      uses: daniilsv/buildctl-cli@v2.0.1
       with:
         action: event
         status: failed
@@ -387,7 +387,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Notify build started
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -400,7 +400,7 @@ jobs:
 
       - name: Notify build success
         if: success()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -410,7 +410,7 @@ jobs:
 
       - name: Notify build failed
         if: failure()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -439,7 +439,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Notify build started
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -455,7 +455,7 @@ jobs:
 
       - name: Upload artifact
         if: success()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: artifact
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -465,7 +465,7 @@ jobs:
 
       - name: Notify build success
         if: success()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -475,7 +475,7 @@ jobs:
 
       - name: Notify build failed
         if: failure()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -504,7 +504,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Notify build started
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -525,7 +525,7 @@ jobs:
 
       - name: Register container image
         if: success()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: container
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -536,7 +536,7 @@ jobs:
 
       - name: Notify build success
         if: success()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -546,7 +546,7 @@ jobs:
 
       - name: Notify build failed
         if: failure()
-        uses: daniilsv/buildctl-cli@v1.0.1
+        uses: daniilsv/buildctl-cli@v2.0.1
         with:
           action: event
           token: ${{ env.BUILD_ASSISTANT_TOKEN }}
@@ -584,5 +584,5 @@ jobs:
 
 6. **Путь к файлу относительный**: путь в `file` должен быть относительно корня репозитория
 
-7. **Версия action**: всегда используй `daniilsv/buildctl-cli@v1.0.1` (или актуальную версию, если указана в существующем workflow)
+7. **Версия action**: всегда используй `daniilsv/buildctl-cli@v2.0.1` (или актуальную версию, если указана в существующем workflow)
 
