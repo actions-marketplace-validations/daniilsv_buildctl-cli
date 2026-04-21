@@ -16,7 +16,8 @@ async function run(): Promise<void> {
       case "event": {
         const status = core.getInput("status", { required: true });
         const log = core.getInput("log");
-        await sendEvent(token, backend, project, branch, commit, status, log);
+        const buildNumber = core.getInput("build_number");
+        await sendEvent(token, backend, project, branch, commit, status, log, buildNumber);
         break;
       }
       case "artifact": {

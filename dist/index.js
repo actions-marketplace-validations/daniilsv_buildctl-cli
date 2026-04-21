@@ -25935,7 +25935,7 @@ const VALID_STATUSES = [
     "failed",
     "cancelled",
 ];
-async function sendEvent(token, backend, project, branch, commit, status, log) {
+async function sendEvent(token, backend, project, branch, commit, status, log, buildNumber) {
     if (!VALID_STATUSES.includes(status)) {
         throw new Error(`Invalid status: ${status}. Must be one of: ${VALID_STATUSES.join(", ")}`);
     }
@@ -25947,6 +25947,9 @@ async function sendEvent(token, backend, project, branch, commit, status, log) {
     };
     if (log) {
         payload.log = log;
+    }
+    if (buildNumber) {
+        payload.build_number = buildNumber;
     }
     const url = `${backend}/api/v1/events`;
     let lastError = null;
@@ -26043,7 +26046,8 @@ async function run() {
             case "event": {
                 const status = core.getInput("status", { required: true });
                 const log = core.getInput("log");
-                await (0, event_1.sendEvent)(token, backend, project, branch, commit, status, log);
+                const buildNumber = core.getInput("build_number");
+                await (0, event_1.sendEvent)(token, backend, project, branch, commit, status, log, buildNumber);
                 break;
             }
             case "artifact": {

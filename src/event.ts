@@ -16,7 +16,8 @@ export async function sendEvent(
   branch: string,
   commit: string,
   status: string,
-  log?: string
+  log?: string,
+  buildNumber?: string
 ): Promise<void> {
   if (!VALID_STATUSES.includes(status)) {
     throw new Error(
@@ -33,6 +34,10 @@ export async function sendEvent(
 
   if (log) {
     payload.log = log;
+  }
+
+  if (buildNumber) {
+    payload.build_number = buildNumber;
   }
 
   const url = `${backend}/api/v1/events`;
