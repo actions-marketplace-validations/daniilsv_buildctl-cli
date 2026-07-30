@@ -16,34 +16,37 @@ GitHub Action для интеграции с Build Assistant - системой 
 
 ```yaml
 - name: Notify build started
-  uses: daniilsv/buildctl-cli@v2.0.1
+  uses: daniilsv/buildctl-cli@v2.0.2
   with:
     action: event
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
     backend: ${{ secrets.BUILD_ASSISTANT_BACKEND }}
     project: my-project
     status: started
+    build_number: ${{ github.run_number }}
 
 - name: Notify build success
   if: success()
-  uses: daniilsv/buildctl-cli@v2.0.1
+  uses: daniilsv/buildctl-cli@v2.0.2
   with:
     action: event
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
     backend: ${{ secrets.BUILD_ASSISTANT_BACKEND }}
     project: my-project
     status: success
+    build_number: ${{ github.run_number }}
     log: "Build completed successfully"
 
 - name: Notify build failed
   if: failure()
-  uses: daniilsv/buildctl-cli@v2.0.1
+  uses: daniilsv/buildctl-cli@v2.0.2
   with:
     action: event
     token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
     backend: ${{ secrets.BUILD_ASSISTANT_BACKEND }}
     project: my-project
     status: failed
+    build_number: ${{ github.run_number }}
     log: "Build failed with errors"
 ```
 
@@ -121,13 +124,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Notify build started
-        uses: daniilsv/buildctl-cli@v2.0.1
+        uses: daniilsv/buildctl-cli@v2.0.2
         with:
           action: event
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
           backend: ${{ secrets.BUILD_ASSISTANT_BACKEND }}
           project: my-project
           status: started
+          build_number: ${{ github.run_number }}
 
       - name: Run tests
         run: npm test
@@ -140,7 +144,7 @@ jobs:
 
       - name: Upload artifact
         if: success()
-        uses: daniilsv/buildctl-cli@v2.0.1
+        uses: daniilsv/buildctl-cli@v2.0.2
         with:
           action: artifact
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -163,7 +167,7 @@ jobs:
 
       - name: Register container image
         if: success()
-        uses: daniilsv/buildctl-cli@v2.0.1
+        uses: daniilsv/buildctl-cli@v2.0.2
         with:
           action: container
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
@@ -174,23 +178,25 @@ jobs:
 
       - name: Notify build success
         if: success()
-        uses: daniilsv/buildctl-cli@v2.0.1
+        uses: daniilsv/buildctl-cli@v2.0.2
         with:
           action: event
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
           backend: ${{ secrets.BUILD_ASSISTANT_BACKEND }}
           project: my-project
           status: success
+          build_number: ${{ github.run_number }}
 
       - name: Notify build failed
         if: failure()
-        uses: daniilsv/buildctl-cli@v2.0.1
+        uses: daniilsv/buildctl-cli@v2.0.2
         with:
           action: event
           token: ${{ secrets.BUILD_ASSISTANT_TOKEN }}
           backend: ${{ secrets.BUILD_ASSISTANT_BACKEND }}
           project: my-project
           status: failed
+          build_number: ${{ github.run_number }}
 ```
 
 ## Входные параметры
@@ -212,6 +218,7 @@ jobs:
 |----------|----------|--------------|
 | `status` | Статус сборки: `queued`, `started`, `in_progress`, `success`, `failed`, `cancelled` | Да |
 | `log` | Сообщение лога | Нет |
+| `build_number` | Номер сборки — отображается в уведомлениях. Обычно `${{ github.run_number }}` | Нет |
 
 ### Параметры для action=artifact
 

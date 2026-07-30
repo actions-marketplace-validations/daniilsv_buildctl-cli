@@ -36,6 +36,9 @@ inputs:
   log:
     description: 'Log message (for action=event)'
     required: false
+  build_number:
+    description: 'Build number (for action=event), e.g. ${{ github.run_number }}'
+    required: false
 
   # Artifact action inputs
   file:
